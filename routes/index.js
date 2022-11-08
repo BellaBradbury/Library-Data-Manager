@@ -11,7 +11,7 @@ const sequelize = new Sequelize({
 const Book = require('.../models/book.js');
 
 Book.findAll().then( (books) => {
-  console.log("sucess");
+  res.json(books);
 })
 
 /* GET home page. */
