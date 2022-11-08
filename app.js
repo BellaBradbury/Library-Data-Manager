@@ -11,16 +11,16 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
-// connect & sync sequelize database
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'library.db'
 });
 
+// connect & sync database
 ( async() => {
   try {
     await sequelize.authenticate();
+    await sequelize.sync();
     console.log("Database connection successful!");
   } catch (err) {
     console.log("There has been a database connection error:", err);
