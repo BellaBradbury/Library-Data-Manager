@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var sequelize = require('sequelize');
+var Sequelize = require('sequelize');
 var sqlite = require('sqlite3');
 var pug = require('pug');
 
@@ -20,7 +20,7 @@ const sequelize = new Sequelize({
 
 ( async() => {
   try {
-    await sequelize.authentication();
+    await sequelize.authenticate();
     console.log("Database connection successful!");
   } catch (err) {
     console.log("There has been a database connection error:", err);
