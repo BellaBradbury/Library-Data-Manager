@@ -12,6 +12,21 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// connect & sync sequelize database
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'library.db'
+});
+
+( async() => {
+  try {
+    await sequelize.authentication();
+    console.log("Database connection successful!");
+  } catch (err) {
+    console.log("There has been a database connection error:", err);
+  }
+})();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
