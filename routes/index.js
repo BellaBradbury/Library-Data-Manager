@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-let sequelize = require('./models').sequelize;
-const Book = require('./models').book;
+let sequelize = require('../models').sequelize;
+const Book = require('../models').book;
 
 // async handler
 function asyncHandler(cb){
