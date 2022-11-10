@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
-let sequelize = require('../models').sequelize;
+var sequelize = require('../models').sequelize;
+var pug = require('pug');
 const Book = require('../models').book;
+const data = require('../models/index').db;
 
 // async handler
 function asyncHandler(cb){
@@ -16,12 +18,10 @@ function asyncHandler(cb){
 
 /* GET home page. */
 router.get('/', asyncHandler( async(req, res) => {
-  res.redirect('books');
-}));
-// ROUTES
-app.get( '/', (req, res) => {
   res.redirect('/books');
-});
+}));
+
+// ROUTES
 router.get( '/books', asyncHandler( async(req, res) => {
   const books = await Book.findAll();
   res.render('index');
