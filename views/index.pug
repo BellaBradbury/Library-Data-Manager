@@ -1,105 +1,21 @@
-doctype html
-head
-  title Books
-  link(href='../public/stylesheets/style.css' rel='stylesheet')
-h1 Books
-p
-  a.button(href='new_book.html') Create New Book
-table
-  thead
-    tr
-      th Title
-      th Author
-      th Genre
-      th Year
-  tbody
-    tr
-      td
-        a(href='book_detail.html') The Hunger Games
-      td Suzanne Collins
-      td Fantasy
-      td 2008
-    tr
-      td
-        a(href='book_detail.html') Catching Fire
-      td Suzanne Collins
-      td Fantasy
-      td 2009
-    tr
-      td
-        a(href='book_detail.html') Mockingjay
-      td Suzanne Collins
-      td Fantasy
-      td 2010
-    tr
-      td
-        a(href='book_detail.html') The Ballad of Songbirds and Snakes
-      td Suzanne Collins
-      td Fantasy
-      td 2020
-    tr
-      td
-        a(href='book_detail.html') The Memory Police
-      td Yoko Ogawa
-      td Science Fiction
-      td 1994
-    tr
-      td
-        a(href='book_detail.html') Nickel Boys
-      td Colson Whitehead
-      td Historical Fiction
-      td 2019
-    tr
-      td
-        a(href='book_detail.html') The Book of Unknown Americans
-      td Cristina Henriquez
-      td Fiction
-      td 2014
-    tr
-      td
-        a(href='book_detail.html') A Brief History of Time
-      td Stephen Hawking
-      td Non Fiction
-      td 1988
-    tr
-      td
-        a(href='book_detail.html') Armada
-      td Ernest Cline
-      td Science Fiction
-      td 2015
-    tr
-      td
-        a(href='book_detail.html') Emma
-      td Jane Austen
-      td Classic
-      td 1815
-    tr
-      td
-        a(href='book_detail.html') Frankenstein
-      td Mary Shelley
-      td Horror
-      td 1818
-    tr
-      td
-        a(href='book_detail.html') Pride and Prejudice
-      td Jane Austen
-      td Classic
-      td 1813
-    tr
-      td
-        a(href='book_detail.html') Ready Player One
-      td Ernest Cline
-      td Science Fiction
-      td 2011
-    tr
-      td
-        a(href='book_detail.html') The Martian
-      td Andy Weir
-      td Science Fiction
-      td 2014
-    tr
-      td
-        a(href='book_detail.html') The Universe in a Nutshell
-      td Stephen Hawking
-      td Non Fiction
-      td 2001
+extends layout.pug
+
+block content
+  h1 Books
+  p
+    a.button(href='new_book.html') Create New Book
+  table
+    thead
+      tr
+        th Title
+        th Author
+        th Genre
+        th Year
+    tbody
+      each book in library
+      tr
+        td
+          a(href='/books/${book.id}') #book.title
+        td #{book.author}
+        td #{book.genre}
+        td #{book.year}
