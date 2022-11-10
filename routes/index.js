@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sequelize = require('../models').sequelize;
 var pug = require('pug');
-const Book = require('../models').book;
+const Book = require('../models').Book;
 const data = require('../models/index').db;
 
 // async handler
