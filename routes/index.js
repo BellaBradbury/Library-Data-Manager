@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sequelize = require('../models').sequelize;
 var pug = require('pug');
-const Book = require('../models').book;
+const Book = require('../models').Book;
 
 // async handler
 function asyncHandler(cb){
@@ -23,7 +23,7 @@ router.get('/', asyncHandler( async(req, res) => {
 // ROUTES
 router.get( '/books', asyncHandler( async(req, res) => {
   const books = await Book.findAll();
-  res.render('index');
+  res.render( 'index', { library: books } );
 }));
 router.get( '/books/new', asyncHandler( async(req, res) => {
   res.render('new-book');
