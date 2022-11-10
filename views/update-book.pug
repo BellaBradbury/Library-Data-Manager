@@ -1,0 +1,25 @@
+doctype html
+head
+  title A Brief History of Time
+  link(rel='stylesheet' href='../public/stylesheets/style.css')
+h1 Update Book
+form
+  p
+    label(for='title') Title
+    input#title(name='title' type='text' value='The Hunger Games')
+  p
+    label(for='author') Author
+    input#author(name='author' type='text' value='Suzanne Collins')
+  p
+    label(for='genre') Genre
+    input#genre(name='genre' type='text' value='Fantasy')
+  p
+    label(for='year') Year
+    input#year(name='year' type='text' value='2008')
+  p
+    input(type='submit' value='Update Book')
+form(method='post' action='/books/8/delete' onsubmit="return confirm('Do you really want to delete this book?');")
+  p
+    a.button(href='all_books.html') Cancel
+  p
+    input(type='submit' value='Delete Book')
