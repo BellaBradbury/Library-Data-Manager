@@ -95,3 +95,7 @@ input[type=text] {
 .error {
   color: rgb(236, 15, 15);
 }
+
+.icon {
+  background-color: white;
+}
