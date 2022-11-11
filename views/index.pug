@@ -3,7 +3,7 @@ extends layout.pug
 block content
   h1 Books
   p
-    a.button(href='new_book.html') Create New Book
+    a.button(href='new-book.pug') Create New Book
   table
     thead
       tr
@@ -15,7 +15,7 @@ block content
       for book in library
         tr
           td
-            a(href='/books/${book.id}') #book.title
+            a(href=`/books/${book.id}`) #{book.title}
           td #{book.author}
           td #{book.genre}
           td #{book.year}
