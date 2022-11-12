@@ -35,8 +35,8 @@ router.post( '/books/new', asyncHandler( async(req, res) => {
     res.redirect('/books');
   } catch (error) {
     if(error.name === 'SequelizeValidationError') {
-      article = await Book.build(req.body);
-      res.render('articles/new', { book, errors: error.errors, title: 'New Book'});
+      book = await Book.build(req.body);
+      res.render('books/new', { book, errors: error.errors, title: 'New Book'});
     } else {
       throw error;
     }
@@ -49,9 +49,19 @@ router.get( '/books/:id', asyncHandler( async(req, res) => {
   res.render( 'update-book', { book, title: 'Update Book' } );
 }));
 router.post( '/books/:id', asyncHandler( async(req, res) => {
-  const book = await Book.findByPk(req.params.id);
-  await book.update(req.body);
-  res.redirect('/books');
+  let book;
+  try {
+    book = await Book.findByPk(req.params.id);
+    await book.update(req.body);
+    res.redirect('/books');
+  } catch (error) {
+    if(error.name === 'SequelizeValidationError') {
+      book = await Book.build(req.body);
+      res.render('books/:id', { book, errors: error.errors, title: 'Update Book'});
+    } else {
+      throw error;
+    }
+  }
 }));
 
 // DELETE INDIVIDUAL BOOK
