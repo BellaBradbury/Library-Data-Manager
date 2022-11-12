@@ -24,16 +24,26 @@ router.get( '/books', asyncHandler( async(req, res) => {
   res.render( 'index', { library: books, title: 'Books' } );
 }));
 
-// CREATE NEW BOOK ROUTES
+// CREATE NEW BOOK
 router.get( '/books/new', asyncHandler( async(req, res) => {
   res.render( 'new-book', {book: {}, title: 'New Book'} );
 }));
 router.post( '/books/new', asyncHandler( async(req, res) => {
-  const book = await Book.create(req.body);
-  res.redirect('/books');
+  let book;
+  try {
+    book = await Book.create(req.body);
+    res.redirect('/books');
+  } catch (error) {
+    if(error.name === 'SequelizeValidationError') {
+      article = await Book.build(req.body);
+      res.render('articles/new', { book, errors: error.errors, title: 'New Book'});
+    } else {
+      throw error;
+    }
+  }
 }));
 
-  // INDIVIDUAL BOOK ROUTES
+  // UPDATE INDIVIDUAL BOOK
 router.get( '/books/:id', asyncHandler( async(req, res) => {
   const book = await Book.findByPk(req.params.id);
   res.render( 'update-book', { book, title: 'Update Book' } );
@@ -44,7 +54,7 @@ router.post( '/books/:id', asyncHandler( async(req, res) => {
   res.redirect('/books');
 }));
 
-// DELETE ROUTE
+// DELETE INDIVIDUAL BOOK
 router.post( '/books/:id/delete', asyncHandler( async(req, res) => {
   const book = await Book.findByPk(req.params.id);
   await book.destroy();
