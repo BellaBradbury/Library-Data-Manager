@@ -39,12 +39,16 @@ router.get( '/books/:id', asyncHandler( async(req, res) => {
   res.render( 'update-book', { book, title: 'Update Book' } );
 }));
 router.post( '/books/:id', asyncHandler( async(req, res) => {
-
+  const book = await Book.findByPk(req.params.id);
+  await book.update(req.body);
+  res.redirect('/books');
 }));
 
 // DELETE ROUTE
 router.post( '/books/:id/delete', asyncHandler( async(req, res) => {
-
+  const book = await Book.findByPk(req.params.id);
+  await book.destroy();
+  res.redirect('/books');
 }));
 
 // ERROR ROUTES
