@@ -15,29 +15,34 @@ function asyncHandler(cb){
   }
 }
 
-/* GET home page. */
+// HOME PAGE ROUTES
 router.get('/', asyncHandler( async(req, res) => {
   res.redirect('/books');
 }));
-
-// ROUTES
 router.get( '/books', asyncHandler( async(req, res) => {
   const books = await Book.findAll();
   res.render( 'index', { library: books, title: 'Books' } );
 }));
+
+// CREATE NEW BOOK ROUTES
 router.get( '/books/new', asyncHandler( async(req, res) => {
-  res.render('new-book', {title: 'New Book'});
+  res.render( 'new-book', {book: {}, title: 'New Book'} );
 }));
 router.post( '/books/new', asyncHandler( async(req, res) => {
-
+  const book = await Book.create(req.body);
+  res.redirect('/books');
 }));
+
+  // INDIVIDUAL BOOK ROUTES
 router.get( '/books/:id', asyncHandler( async(req, res) => {
-  const index = req.params.id;
-  res.render( 'update-book', { project: data.projects[index], title: 'Update Book' } );
+  const book = await Book.findByPk(req.params.id);
+  res.render( 'update-book', { book, title: 'Update Book' } );
 }));
 router.post( '/books/:id', asyncHandler( async(req, res) => {
 
 }));
+
+// DELETE ROUTE
 router.post( '/books/:id/delete', asyncHandler( async(req, res) => {
 
 }));
