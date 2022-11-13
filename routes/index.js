@@ -36,7 +36,7 @@ router.post( '/books/new', asyncHandler( async(req, res) => {
   } catch (error) {
     if(error.name === 'SequelizeValidationError') {
       book = await Book.build(req.body);
-      res.render('books/new', { book, errors: error.errors, title: 'New Book'});
+      res.render('new-book', { book, errors: error.errors, title: 'New Book'});
     } else {
       throw error;
     }
@@ -57,7 +57,7 @@ router.post( '/books/:id', asyncHandler( async(req, res) => {
   } catch (error) {
     if(error.name === 'SequelizeValidationError') {
       book = await Book.build(req.body);
-      res.render('books/:id', { book, errors: error.errors, title: 'Update Book'});
+      res.render('update-book', { book, errors: error.errors, title: 'Update Book'});
     } else {
       throw error;
     }
