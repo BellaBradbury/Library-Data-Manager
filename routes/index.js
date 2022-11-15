@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var sequelize = require('../models').sequelize;
+const {Op} = require('sequelize')
 var pug = require('pug');
 const Book = require('../models').Book;
 
@@ -23,7 +24,7 @@ router.get( '/books', asyncHandler( async(req, res) => {
   let { searchInput } = req.query;
 
   if (searchInput) {
-    const { rows } = await Book.findAll({
+    const rows = await Book.findAll({
       where: {
         [Op.or]: {
           title: { [Op.like]: `%${searchInput}%`},
@@ -36,7 +37,7 @@ router.get( '/books', asyncHandler( async(req, res) => {
 
     const bookResults = rows;
 
-    res.render( 'index', {bookResults, title: 'Books'} );
+    res.render( 'index', {library: bookResults, title: 'Books'} );
   } else {
     const books = await Book.findAll();
     res.render( 'index', {library: books, title: 'Books'} );
