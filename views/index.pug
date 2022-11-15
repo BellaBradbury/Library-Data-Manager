@@ -4,6 +4,9 @@ block content
   h1 Books
   p
     a.button(href='/books/new') Create New Book
+    form(action='/books', method='get', id='searchBar')
+      input(type='search', name='searchInput', id='searchInput', value=`${searchInput || ''}`)
+      input(type='submit', value='Search', class='searchBtn')
   table
     thead
       tr

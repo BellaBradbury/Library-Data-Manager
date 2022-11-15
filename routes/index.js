@@ -20,8 +20,27 @@ router.get('/', asyncHandler( async(req, res) => {
   res.redirect('/books');
 }));
 router.get( '/books', asyncHandler( async(req, res) => {
-  const books = await Book.findAll();
-  res.render( 'index', { library: books, title: 'Books' } );
+  let { searchInput } = req.query;
+
+  if (searchInput) {
+    const { rows } = await Book.findAndCountAll({
+      where: {
+        [Op.or]: {
+          title: { [Op.like]: `%${searchInput}`},
+          author: { [Op.like]: `%${searchInput}`},
+          genre: { [Op.like]: `%${searchInput}`},
+          year: { [Op.like]: `%${searchInput}`},
+        }
+      }
+    });
+
+    const bookResults = rows;
+
+    res.render( 'index', {bookResults, title: 'Books'} );
+  } else {
+    const books = await Book.findAll();
+    res.render( 'index', { library: books, title: 'Books' } );
+  }
 }));
 
 // CREATE NEW BOOK
