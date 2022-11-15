@@ -37,6 +37,16 @@ input[type=submit] {
     background-color: #01b189;
   }
 
+.searchBtn {
+  margin-left: 5% !important;
+}
+
+#searchBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
 p {
   margin: 20px auto;
 }
