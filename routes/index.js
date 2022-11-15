@@ -23,13 +23,13 @@ router.get( '/books', asyncHandler( async(req, res) => {
   let { searchInput } = req.query;
 
   if (searchInput) {
-    const { rows } = await Book.findAndCountAll({
+    const { rows } = await Book.findAll({
       where: {
         [Op.or]: {
-          title: { [Op.like]: `%${searchInput}`},
-          author: { [Op.like]: `%${searchInput}`},
-          genre: { [Op.like]: `%${searchInput}`},
-          year: { [Op.like]: `%${searchInput}`},
+          title: { [Op.like]: `%${searchInput}%`},
+          author: { [Op.like]: `%${searchInput}%`},
+          genre: { [Op.like]: `%${searchInput}%`},
+          year: { [Op.like]: `%${searchInput}%`}
         }
       }
     });
@@ -39,7 +39,7 @@ router.get( '/books', asyncHandler( async(req, res) => {
     res.render( 'index', {bookResults, title: 'Books'} );
   } else {
     const books = await Book.findAll();
-    res.render( 'index', { library: books, title: 'Books' } );
+    res.render( 'index', {library: books, title: 'Books'} );
   }
 }));
 
