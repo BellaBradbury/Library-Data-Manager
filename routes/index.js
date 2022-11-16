@@ -20,7 +20,7 @@ function asyncHandler(cb){
 router.get('/', asyncHandler( async(req, res) => {
   res.redirect('/books');
 }));
-router.get( '/books', bookPg.findAll, asyncHandler( async(req, res) => {
+router.get( '/books', asyncHandler( async(req, res) => {
     let { searchInput } = req.query;
 
     if (searchInput) {
@@ -45,10 +45,9 @@ router.get( '/books', bookPg.findAll, asyncHandler( async(req, res) => {
         limit: 5
       });
       const totalBooks = count;
-      // const totalPages = Math.ceil(totalBooks / limit);
-      // console.log(totalPages);
+      const totalPages = Math.ceil(totalBooks / 5);
+      console.log(totalPages);
       console.log(count);
-      // console.log(rows);
       res.render( 'index', {library: books, title: 'Books'} );
     }
 }));
