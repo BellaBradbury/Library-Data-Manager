@@ -20,33 +20,30 @@ function asyncHandler(cb){
 router.get('/', asyncHandler( async(req, res) => {
   res.redirect('/books');
 }));
-module.exports = app => {
-  const bookPg = require('../app.js');
 
-  router.get( '/books', bookPg.findAll, asyncHandler( async(req, res) => {
-    let { searchInput } = req.query;
+router.get( '/books', asyncHandler( async(req, res) => {
+  let { searchInput } = req.query;
 
-    if (searchInput) {
-      const rows = await Book.findAll({
-        where: {
-          [Op.or]: {
-            title: { [Op.like]: `%${searchInput}%`},
-            author: { [Op.like]: `%${searchInput}%`},
-            genre: { [Op.like]: `%${searchInput}%`},
-            year: { [Op.like]: `%${searchInput}%`}
-          }
+  if (searchInput) {
+    const rows = await Book.findAll({
+      where: {
+        [Op.or]: {
+          title: { [Op.like]: `%${searchInput}%`},
+          author: { [Op.like]: `%${searchInput}%`},
+          genre: { [Op.like]: `%${searchInput}%`},
+          year: { [Op.like]: `%${searchInput}%`}
         }
-      });
+      }
+    });
 
-      const bookResults = rows;
+    const bookResults = rows;
 
-      res.render( 'index', {library: bookResults, title: 'Books'} );
-    } else {
-      const books = await Book.findAll();
-      res.render( 'index', {library: books, title: 'Books'} );
-    }
-  }));
-}
+    res.render( 'index', {library: bookResults, title: 'Books'} );
+  } else {
+    const books = await Book.findAll();
+    res.render( 'index', {library: books, title: 'Books'} );
+  }
+}));
 
 // CREATE NEW BOOK
 router.get( '/books/new', asyncHandler( async(req, res) => {
