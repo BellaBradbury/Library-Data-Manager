@@ -60,4 +60,31 @@ app.use( (err, req, res, next) => {
   }
 });
 
+// PAGINATION HANDLING
+const getPagination = (page, size) => {
+  const limit = size ? + size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+}
+
+getPagingData = (data, page, limit) => {
+  const { count: totalBooks, rows: allBooks} = data;
+  const currentPage = page ? + page : 0;
+  const totalPages = Math.ceil(totalBooks / limit);
+
+  return { totalBooks, allBooks, totalPages, currentPage };
+}
+
+exports.findAll = (req, res) => {
+  const {page, size} = req.query;
+  const {limit, offset} = getPagination(page,size);
+
+  Book.findAndCountAll({ where: limit, offset })
+    .then(data => {
+      const response = getPagingData(data, page, limit);
+      res.send(response);
+    });
+};
+
 module.exports = app;
