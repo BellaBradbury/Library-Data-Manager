@@ -20,10 +20,7 @@ function asyncHandler(cb){
 router.get('/', asyncHandler( async(req, res) => {
   res.redirect('/books');
 }));
-module.exports = app => {
-  const bookPg = require('../app.js');
-
-  router.get( '/books', bookPg.findAll, asyncHandler( async(req, res) => {
+router.get( '/books', bookPg.findAll, asyncHandler( async(req, res) => {
     let { searchInput } = req.query;
 
     if (searchInput) {
@@ -43,10 +40,19 @@ module.exports = app => {
       res.render( 'index', {library: bookResults, title: 'Books'} );
     } else {
       const books = await Book.findAll();
+      const { count, rows } = await Book.findAndCountAll({
+        offset: 0,
+        limit: 5
+      });
+      const totalBooks = count;
+      // const totalPages = Math.ceil(totalBooks / limit);
+      // console.log(totalPages);
+      console.log(count);
+      // console.log(rows);
       res.render( 'index', {library: books, title: 'Books'} );
     }
-  }));
-}
+}));
+
 
 // CREATE NEW BOOK
 router.get( '/books/new', asyncHandler( async(req, res) => {
