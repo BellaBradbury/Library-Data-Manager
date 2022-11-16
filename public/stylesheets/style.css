@@ -47,6 +47,18 @@ input[type=submit] {
   flex-wrap: nowrap;
 }
 
+.pg-btn {
+  margin: 2% !important;
+  margin-top: 10% !important;
+}
+
+#pg-btns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 p {
   margin: 20px auto;
 }

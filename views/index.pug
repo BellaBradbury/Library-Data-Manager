@@ -23,6 +23,7 @@ block content
           td #{book.author}
           td #{book.genre}
           td #{book.year}
-  - let i = 1;
-    while i < pages + 1
-      a.button.page(href=`/books?page=${i}`)= i++
+  div(id="pg-btns")
+    - let i = 1;
+      while i < pages + 1
+        a.button.page(href=`/books?page=${i}`, class="pg-btn")= i++
