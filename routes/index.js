@@ -39,16 +39,17 @@ router.get( '/books', asyncHandler( async(req, res) => {
 
       res.render( 'index', {library: bookResults, title: 'Books'} );
     } else {
-      const books = await Book.findAll();
-      const { count, rows } = await Book.findAndCountAll({
-        offset: 0,
+      await Book.findAndCountAll({
+        offset: req.query.page ? Number(req.query.page - 1) * 5 : 0,
         limit: 5
+      }).then(books => {
+        res.render('index', {library: books.rows, pages: Number(books.count / 5), title: 'Books'});
       });
-      const totalBooks = count;
-      const totalPages = Math.ceil(totalBooks / 5);
-      console.log(totalPages);
-      console.log(count);
-      res.render( 'index', {library: books, title: 'Books'} );
+      // const totalBooks = count;
+      // const totalPages = Math.ceil(totalBooks / 5);
+      // console.log(totalPages);
+      // console.log(count);
+      // res.render( 'index', {library: books, title: 'Books'} );
     }
 }));
 
