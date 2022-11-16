@@ -20,10 +20,8 @@ function asyncHandler(cb){
 router.get('/', asyncHandler( async(req, res) => {
   res.redirect('/books');
 }));
-
 router.get( '/books', asyncHandler( async(req, res) => {
   let { searchInput } = req.query;
-
   if (searchInput) {
     const rows = await Book.findAll({
       where: {
@@ -35,12 +33,19 @@ router.get( '/books', asyncHandler( async(req, res) => {
         }
       }
     });
-
     const bookResults = rows;
-
     res.render( 'index', {library: bookResults, title: 'Books'} );
   } else {
     const books = await Book.findAll();
+    const { count, rows } = await Book.findAndCountAll({
+      offset: 0,
+      limit: 5
+    });
+    const totalBooks = count;
+    // const totalPages = Math.ceil(totalBooks / limit);
+    // console.log(totalPages);
+    console.log(count);
+    // console.log(rows);
     res.render( 'index', {library: books, title: 'Books'} );
   }
 }));
