@@ -1,6 +1,6 @@
 Team Treehouse - Web Development TechDegree - Project 10
 
-Submitted 00/00/00 *STATUS*
+Submitted 11/15/22 *EXCEEDS EXPECTATIONS*
 
 -SKILLS USED-
 * JavaScript
