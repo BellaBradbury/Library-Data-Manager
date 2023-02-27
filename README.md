@@ -1,7 +1,9 @@
 # Build A SQL Library Manager
 Team Treehouse - Web Development TechDegree - Project 10
-
-Submitted 11/15/22 *EXCEEDS EXPECTATIONS*
+  - Submitted 11/15/22 ***EXCEEDS EXPECTATIONS***
+  
+Team Treehouse - Full Stack JavaScript TechDegree- Project 8
+  - Submitted 1/20/23 ***EXCEEDS EXPECTATIONS***
 
 -SKILLS USED-
 * JavaScript
