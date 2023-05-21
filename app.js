@@ -1,16 +1,16 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var Sequelize = require('sequelize');
-var sqlite = require('sqlite3');
-var pug = require('pug');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let Sequelize = require('sequelize');
+let sqlite = require('sqlite3');
+let pug = require('pug');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
 
-var app = express();
+let app = express();
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'library.db'

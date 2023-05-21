@@ -1,8 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var sequelize = require('../models').sequelize;
+let express = require('express');
+let router = express.Router();
 const {Op} = require('sequelize')
-var pug = require('pug');
 const Book = require('../models').Book;
 
 // async handler
@@ -45,11 +43,6 @@ router.get( '/books', asyncHandler( async(req, res) => {
       }).then(books => {
         res.render('index', {library: books.rows, pages: Number(books.count / 5), title: 'Books'});
       });
-      // const totalBooks = count;
-      // const totalPages = Math.ceil(totalBooks / 5);
-      // console.log(totalPages);
-      // console.log(count);
-      // res.render( 'index', {library: books, title: 'Books'} );
     }
 }));
 
