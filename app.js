@@ -68,7 +68,7 @@ const getPagination = (page, size) => {
   return { limit, offset };
 }
 
-getPagingData = (data, page, limit) => {
+let getPagingData = (data, page, limit) => {
   const { count: totalBooks, rows: allBooks} = data;
   const currentPage = page ? + page : 0;
   const totalPages = Math.ceil(totalBooks / limit);
